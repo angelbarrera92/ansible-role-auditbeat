@@ -1,41 +1,6 @@
 ---
 # defaults file for auditbeat
 beats_version: '6.x'
-
-# Auditbeat module file_integrity
-# Config: https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-module-file_integrity.html
-
-# file_integrity_module_conf:
-#   paths:
-#   - /bin
-#   - /usr/bin
-#   - /sbin
-#   - /usr/sbin
-#   - /etc
-#   exclude_files:
-#   - '(?i)\.sw[nop]$'
-#   - '~$'
-#   - '/\.git($|/)'
-#   scan_at_start: true
-#   scan_rate_per_sec: 50 MiB
-#   max_file_size: 100 MiB
-#   hash_types: [sha256]
-#   recursive: false
-file_integrity_module_conf:
-
-
-# Auditbeat module auditd
-# Config: https://www.elastic.co/guide/en/beats/auditbeat/current/auditbeat-module-auditd.html
-
-# auditd_module_conf:
-#   resolve_ids: true
-#   failure_mode: silent
-#   backlog_limit: 8192
-#   rate_limit: 0
-#   include_raw_message: false
-#   include_warnings: false
-#   backpressure_strategy: auto
-auditd_module_conf:
 stop_service_auditd: true
 
 auditbeat_output_logstash_enabled: true
@@ -44,3 +9,31 @@ auditbeat_output_logstash_hosts:
 
 auditbeat_tags:
   - "auditbeat"
+
+auditbeat_modules_conf:
+
+# auditbeat_modules_conf:
+#   - module: file_integrity
+#     paths:
+#     - /bin
+#     - /usr/bin
+#     - /sbin
+#     - /usr/sbin
+#     - /etc
+#     exclude_files:
+#     - '(?i)\.sw[nop]$'
+#     - '~$'
+#     - '/\.git($|/)'
+#     scan_at_start: true
+#     scan_rate_per_sec: 50 MiB
+#     max_file_size: 100 MiB
+#     hash_types: [sha256]
+#     recursive: false
+#   - module: auditd
+#     resolve_ids: true
+#     failure_mode: silent
+#     backlog_limit: 8192
+#     rate_limit: 0
+#     include_raw_message: false
+#     include_warnings: false
+#     backpressure_strategy: auto
