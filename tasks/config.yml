@@ -1,0 +1,21 @@
+---
+- name: Copy Auditbeat configuration.
+  template:
+    src: auditbeat.yml.j2
+    dest: "/etc/auditbeat/auditbeat.yml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart auditbeat
+
+- name: Stop auditd service
+  service:
+    name: auditd
+    state: stopped
+  when: stop_service_auditd
+
+- name: Disable auditd service
+  service:
+    name: auditd
+    enabled: "no"
+  when: stop_service_auditd

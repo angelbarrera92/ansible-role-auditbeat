@@ -1,0 +1,39 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: molecule/common/yamllint
+platforms:
+  - name: molecule-centos-docker
+    image: centos/systemd
+    command: /usr/sbin/init
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: molecule-ubuntu-18-04-docker
+    image: solita/ubuntu-systemd:18.04
+    command: /sbin/init
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../common/playbook.yml
+  lint:
+    name: ansible-lint
+scenario:
+  name: docker
+verifier:
+  name: testinfra
+  directory: ../../tests
+  lint:
+    name: flake8

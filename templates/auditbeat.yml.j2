@@ -1,0 +1,14 @@
+tags: {{ auditbeat_tags | to_json }}
+
+auditbeat.modules:
+  - module: file_integrity
+    {{ file_integrity_module_conf | to_nice_yaml }}
+  - module: auditd
+    {{ auditd_module_conf | to_nice_yaml }}
+
+{% if auditbeat_output_logstash_enabled %}
+output.logstash:
+  # The Logstash hosts
+  hosts: {{ auditbeat_output_logstash_hosts | to_json }}
+
+{% endif %}

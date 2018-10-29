@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - role: ${ANSIBLE_ROLE_NAME}
+      stop_service_auditd: false
+      file_integrity_module_conf:
+        scan_at_start: true
+      auditd_module_conf:
+        rate_limit: 0

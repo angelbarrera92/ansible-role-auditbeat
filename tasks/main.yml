@@ -1,0 +1,10 @@
+---
+
+- include: setup-{{ ansible_os_family }}.yml
+
+- name: Install Auditbeat.
+  package:
+    name: auditbeat
+    state: present
+
+- include: config.yml
