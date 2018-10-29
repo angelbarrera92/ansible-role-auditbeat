@@ -12,10 +12,12 @@
   service:
     name: auditd
     state: stopped
+    use: service
   when: stop_service_auditd
 
 - name: Disable auditd service
   service:
     name: auditd
     enabled: "no"
+    use: service
   when: stop_service_auditd
