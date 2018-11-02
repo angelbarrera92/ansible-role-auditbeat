@@ -9,19 +9,27 @@ lint:
     config-file: molecule/common/yamllint
 platforms:
   - name: molecule-centos-docker
-    image: centos/systemd
-    command: /usr/sbin/init
+    image: paulfantom/centos-molecule:7
+    command: ""
     privileged: true
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pid_mode: host
     capabilities:
       - SYS_ADMIN
+      - AUDIT_CONTROL
+      - AUDIT_READ
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: molecule-ubuntu-18-04-docker
-    image: solita/ubuntu-systemd:18.04
-    command: /sbin/init
+    image: paulfantom/ubuntu-molecule:18.04
+    command: ""
     privileged: true
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pid_mode: host
     capabilities:
       - SYS_ADMIN
+      - AUDIT_CONTROL
+      - AUDIT_READ
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:

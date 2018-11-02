@@ -33,3 +33,5 @@
           include_raw_message: false
           include_warnings: false
           backpressure_strategy: auto
+      auditbeat_enable_logging: true
+      auditbeat_log_level: debug
