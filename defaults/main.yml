@@ -1,17 +1,9 @@
 ---
 # defaults file for auditbeat
 beats_version: '6.x'
-stop_service_auditd: true
-
-auditbeat_output_logstash_enabled: true
-auditbeat_output_logstash_hosts:
-  - "localhost:5044"
-
-auditbeat_tags:
-  - "auditbeat"
+auditbeat_create_config: true
 
 auditbeat_modules_conf:
-
 # auditbeat_modules_conf:
 #   - module: file_integrity
 #     paths:
@@ -37,3 +29,22 @@ auditbeat_modules_conf:
 #     include_raw_message: false
 #     include_warnings: false
 #     backpressure_strategy: auto
+
+stop_service_auditd: true
+
+auditbeat_output_logstash_enabled: true
+auditbeat_output_logstash_hosts:
+  - "localhost:5044"
+
+auditbeat_tags:
+  - "auditbeat"
+
+auditbeat_ssl_certificate_file: ""
+auditbeat_ssl_key_file: ""
+auditbeat_ssl_dir: /etc/pki/logstash
+auditbeat_ssl_insecure: "false"
+
+auditbeat_enable_logging: false
+auditbeat_log_level: warning
+auditbeat_log_dir: /var/log/auditbeat
+auditbeat_log_filename: auditbeat.log

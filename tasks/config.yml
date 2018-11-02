@@ -8,16 +8,19 @@
     mode: 0644
   notify: restart auditbeat
 
-- name: Stop auditd service
-  service:
-    name: auditd
-    state: stopped
-    use: service
-  when: stop_service_auditd
+- name: Ensure Auditbeat SSL key pair directory exists.
+  file:
+    path: "{{ auditbeat_ssl_dir }}"
+    state: directory
+  when: auditbeat_ssl_key_file
 
-- name: Disable auditd service
-  service:
-    name: auditd
-    enabled: "no"
-    use: service
-  when: stop_service_auditd
+- name: Copy SSL key and cert for auditbeat.
+  copy:
+    src: "{{ item }}"
+    dest: "{{ auditbeat_ssl_dir }}/{{ item | basename }}"
+    mode: 0644
+  with_items:
+    - "{{ auditbeat_ssl_key_file }}"
+    - "{{ auditbeat_ssl_certificate_file }}"
+  notify: restart auditbeat
+  when: auditbeat_ssl_key_file and auditbeat_ssl_certificate_file

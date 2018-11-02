@@ -2,9 +2,19 @@
 
 - include: setup-{{ ansible_os_family }}.yml
 
+- include: auditd.yml
+  when: stop_service_auditd
+
 - name: Install Auditbeat.
   package:
     name: auditbeat
     state: present
 
 - include: config.yml
+  when: auditbeat_create_config
+
+- name: Ensure Auditbeat is started and enabled at boot.
+  service:
+    name: auditbeat
+    state: started
+    enabled: true

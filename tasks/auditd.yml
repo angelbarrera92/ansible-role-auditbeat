@@ -1,0 +1,12 @@
+---
+- name: Stop auditd service
+  service:
+    name: auditd
+    state: stopped
+    use: service
+
+- name: Disable auditd service
+  service:
+    name: auditd
+    enabled: "no"
+    use: service
