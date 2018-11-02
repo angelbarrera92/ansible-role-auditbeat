@@ -1,12 +1,30 @@
 ---
-- name: Stop auditd service
-  service:
+
+- name: Find auditd service file.
+  find: 
+    paths: /
+    patterns: 'auditd.service'
+    recurse: yes
+  register: service_file
+
+- name: Comment RefuseManualStop in auditd service.
+  lineinfile:
+    path: "{{ item.path }}"
+    regexp: '^RefuseManualStop'
+    line: '#RefuseManualStop=yes'
+  with_items: "{{ service_file.files }}"
+  changed_when: false
+
+- name: Reload services.
+  systemd:
+    daemon_reload: yes
+
+- name: Stop auditd service.
+  systemd:
     name: auditd
     state: stopped
-    use: service
 
-- name: Disable auditd service
-  service:
+- name: Disable auditd service.
+  systemd:
     name: auditd
     enabled: "no"
-    use: service
