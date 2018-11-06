@@ -61,6 +61,14 @@ auditbeat_output_logstash_hosts:
 Whether to enable Logstash output, and which hosts to send output to.
 
 ```yaml
+auditbeat_enable_processors: true
+auditbeat_processors_conf:
+  - add_host_metadata: ~
+```
+
+Whether to enable processors, and which one use. How to define processors can be found [here](https://www.elastic.co/guide/en/beats/auditbeat/current/defining-processors.html)
+
+```yaml
 auditbeat_enable_logging: false
 auditbeat_log_level: warning
 auditbeat_log_dir: /var/log/auditbeat

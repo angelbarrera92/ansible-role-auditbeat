@@ -48,3 +48,8 @@ auditbeat_enable_logging: false
 auditbeat_log_level: warning
 auditbeat_log_dir: /var/log/auditbeat
 auditbeat_log_filename: auditbeat.log
+
+auditbeat_enable_processors: false
+auditbeat_processors_conf: ~
+# auditbeat_processors_conf:
+#   - add_host_metadata: ~
