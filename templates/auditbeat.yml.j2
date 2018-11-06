@@ -36,6 +36,11 @@ output.logstash:
     #curve_types: []
 {% endif %}
 
+{% if auditbeat_enable_processors %}
+processors:
+  {{ auditbeat_processors_conf | to_json }}
+{% endif %}
+
 {% if auditbeat_enable_logging %}
 logging:
   ### Auditbeat log
